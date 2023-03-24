@@ -10,6 +10,7 @@ services:
       replicas: 0
     tags:
       - "localhost/yt-base-image"
+
   api:
     container_name: yt_api
     build:
@@ -27,6 +28,8 @@ services:
       - rabbitmq
       - worker
       - redis
+      - base-image
+
   bot:
     container_name: yt_bot
     build:
@@ -43,8 +46,10 @@ services:
       - rabbitmq
       - worker
       - api
+      - base-image
     volumes:
       - "shared-tmpfs:/tmp/download_tmpfs"
+
   worker:
     container_name: yt_worker
     build:
@@ -59,9 +64,11 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+      - base-image
     volumes:
       - "/filestorageyt:/filestorage"
       - "shared-tmpfs:/tmp/download_tmpfs"
+
   postgres:
     container_name: yt_postgres
     image: "postgres:14"
@@ -72,6 +79,7 @@ services:
     restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data
+
   rabbitmq:
     image: "rabbitmq:3.11-management-alpine"
     container_name: yt_rabbitmq
@@ -79,6 +87,7 @@ services:
       - "25672:5672"
       - "15672:15672"
     restart: unless-stopped
+
   redis:
     image: "redis:alpine"
     container_name: yt_redis
