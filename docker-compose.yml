@@ -5,9 +5,6 @@ services:
     build:
       dockerfile: ./base.Dockerfile
     image: yt-base-image
-    deploy:
-      mode: replicated
-      replicas: 0
 
   api:
     container_name: yt_api
@@ -26,7 +23,6 @@ services:
       - rabbitmq
       - worker
       - redis
-      - base-image
 
   bot:
     container_name: yt_bot
@@ -44,7 +40,6 @@ services:
       - rabbitmq
       - worker
       - api
-      - base-image
     volumes:
       - "shared-tmpfs:/tmp/download_tmpfs"
 
@@ -62,7 +57,6 @@ services:
     depends_on:
       - postgres
       - rabbitmq
-      - base-image
     volumes:
       - "/filestorageyt:/filestorage"
       - "shared-tmpfs:/tmp/download_tmpfs"
