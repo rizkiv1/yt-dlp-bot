@@ -8,6 +8,8 @@ services:
     deploy:
       mode: replicated
       replicas: 0
+    tags:
+      - "localhost/yt-base-image"
   api:
     container_name: yt_api
     build:

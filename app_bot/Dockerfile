@@ -1,4 +1,4 @@
-FROM yt-base-image
+FROM localhost/yt-base-image
 
 COPY ./app_bot/requirements.txt ./
 
