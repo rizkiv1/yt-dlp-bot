@@ -1,7 +1,5 @@
 FROM docker.io/library/python:3.11-alpine
 
-COPY apk_mirrors /etc/apk/repositories
-
 RUN apk add --no-cache \
         tzdata \
         htop \
