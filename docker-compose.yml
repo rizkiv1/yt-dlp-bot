@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   base-image:
-    image: localhost/base-image
+    image: yt-base-image
     build:
       dockerfile: ./base.Dockerfile
     deploy:

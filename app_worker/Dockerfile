@@ -1,4 +1,4 @@
-FROM localhost/base-image
+FROM yt-base-image
 
 RUN apk add --no-cache ffmpeg
 
