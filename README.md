@@ -2,15 +2,21 @@
 
 Simple and reliable YouTube Download Telegram Bot.
 
-Version: 0.9. [Release details](.releases/release_0.9.md).
+Version: 1.2.1. [Release details](RELEASES.md).
 
 ![frames](.assets/download_success.png)
 
+
+## Support the development
+
+- PayPal [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MA6RKYAZH9DSA)
+- Bitcoin wallet `14kMRS8SvfD2ydMSMEyAmefHV3Yynf9kAd`
+
 ## 😂 Features
 
-* Download videos from any [yt-dlp](https://github.com/yt-dlp/yt-dlp) supported website
+* Download audio and videos from any [yt-dlp](https://github.com/yt-dlp/yt-dlp) supported website
   to your storage
-* Upload downloaded videos to the Telegram chat
+* Upload downloaded audio and videos to the Telegram chat
 * Trigger video download by sending link to an API
 * Track download tasks via API
 
@@ -25,8 +31,10 @@ Version: 0.9. [Release details](.releases/release_0.9.md).
 6. Write your Telegram user id to the `allowed_users` -> `id` by replacing dummy value
    and change or remove `forward_group_id` value (if you want to forward the video to
    some group when upload is enabled)
-7. Check the default environment variables in `envs/.env_common` and change if needed
-8. Video storage path (`STORAGE_PATH` environment variable) is located in
+7. Configure download media type for the user/group: `AUDIO`, `VIDEO` or `AUDIO_VIDEO` 
+   in `app_bot/config.yml`'s variable `download_media_type`
+8. Check the default environment variables in `envs/.env_common` and change if needed
+9. Media `STORAGE_PATH` environment variable is located in
    the `envs/.env_worker` file. By default, it's `/filestorage` path inside the
    container. What you want is to map the real path to this inside
    the `docker-compose.yml` file for `worker` service, e.g. if you're on Windows, next
@@ -38,7 +46,7 @@ Version: 0.9. [Release details](.releases/release_0.9.md).
        volumes:
          - "D:/Videos:/filestorage"
    ```
-9. If you want your downloaded video to be uploaded back to the Telegram,
+10. If you want your downloaded video to be uploaded back to the Telegram,
    set `upload_video_file` config variable for your user in the `app_bot/config.yml`
    to `True`
 
@@ -163,7 +171,9 @@ documentations lives at `http://127.0.0.1:1984/docs`.
    Request
    ```json
    {
-       "url": "https://youtu.be/AWy1qiTF64M"
+       "url": "https://www.youtube.com/watch?v=zGDzdps75ns",
+       "download_media_type": "AUDIO_VIDEO",
+       "save_to_storage": false
    }
    ```
    Response

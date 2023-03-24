@@ -1,31 +1,22 @@
 import uuid
-from typing import ClassVar
+from typing import Literal
 
 from pydantic import StrictInt, StrictStr
-from pydantic.types import StrictFloat
 
 from yt_shared.enums import RabbitPayloadType, TelegramChatType
 from yt_shared.schemas.base import BaseRabbitPayloadModel
-from yt_shared.schemas.video import VideoPayload
+from yt_shared.schemas.media import DownMedia, IncomingMediaPayload
 
 
 class SuccessPayload(BaseRabbitPayloadModel):
-    _TYPE: ClassVar = RabbitPayloadType.SUCCESS
+    """Payload with downloaded media context."""
 
-    type: RabbitPayloadType = _TYPE
+    type: Literal[RabbitPayloadType.SUCCESS] = RabbitPayloadType.SUCCESS
     task_id: uuid.UUID
     from_chat_id: StrictInt | None
     from_chat_type: TelegramChatType | None
     from_user_id: StrictInt | None
     message_id: StrictInt | None
-    title: StrictStr
-    filename: StrictStr
-    thumb_name: StrictStr
-    filepath: StrictStr
-    thumb_path: StrictStr | None = None
-    root_path: StrictStr
-    duration: StrictFloat | None
-    width: StrictInt | None
-    height: StrictInt | None
-    context: VideoPayload
+    media: DownMedia
+    context: IncomingMediaPayload
     yt_dlp_version: StrictStr | None

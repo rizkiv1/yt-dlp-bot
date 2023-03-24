@@ -1,28 +1,22 @@
-from typing import ClassVar
-
-from pydantic import BaseModel, Extra, validator
+from pydantic import BaseModel, Extra
 
 from yt_shared.enums import RabbitPayloadType
 
 
 class RealBaseModel(BaseModel):
+    """Base Pydantic model. All models should inherit from this."""
+
     class Config:
         extra = Extra.forbid
 
     def json(self, *args, **kwargs) -> str:
+        """By default, dump without whitespaces."""
         if 'separators' not in kwargs:
             kwargs['separators'] = (',', ':')
         return super().json(*args, **kwargs)
 
 
 class BaseRabbitPayloadModel(RealBaseModel):
-    _TYPE: ClassVar[RabbitPayloadType] = None
+    """Base RabbitMQ payload model. All RabbitMQ models should inherit from this."""
 
-    type: RabbitPayloadType = None
-
-    @classmethod
-    @validator('type')
-    def validate_type_value(cls, v: RabbitPayloadType) -> RabbitPayloadType:
-        if v is not cls._TYPE:
-            raise ValueError(f'Value "{v}" must be {cls._TYPE}')
-        return v
+    type: RabbitPayloadType
