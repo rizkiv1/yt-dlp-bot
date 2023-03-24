@@ -4,6 +4,7 @@ services:
   base-image:
     image: yt-base-image
     build:
+      context: .
       dockerfile: ./base.Dockerfile
     deploy:
       mode: replicated
