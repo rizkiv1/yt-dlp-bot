@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  base:
+  base-image:
     build:
       dockerfile: ./base.Dockerfile
     image: yt-base-image
