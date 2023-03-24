@@ -2,14 +2,12 @@ version: "3.8"
 
 services:
   base:
-    image: yt-base-image
     build:
       dockerfile: ./base.Dockerfile
+    image: yt-base-image
     deploy:
       mode: replicated
       replicas: 0
-    tags:
-      - "localhost/yt-base-image"
 
   api:
     container_name: yt_api
