@@ -2,9 +2,9 @@ version: "3.8"
 
 services:
   base-image:
-    image: yt-base-image
+    image: localhost/base-image
     build:
-      dockerfile: base.Dockerfile
+      dockerfile: ./base.Dockerfile
     deploy:
       mode: replicated
       replicas: 0
@@ -58,7 +58,7 @@ services:
       - postgres
       - rabbitmq
     volumes:
-      - "/data/downloads:/filestorage"
+      - "/filestorageyt:/filestorage"
       - "shared-tmpfs:/tmp/download_tmpfs"
   postgres:
     container_name: yt_postgres

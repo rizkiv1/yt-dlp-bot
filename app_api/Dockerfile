@@ -1,4 +1,4 @@
-FROM yt-base-image
+FROM localhost/base-image
 
 COPY ./app_api/requirements.txt ./
 
